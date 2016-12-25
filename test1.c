@@ -6,14 +6,14 @@
    Network Configuration - customized per network
  ******************************************************************/
 
-const int PatternCount = 19999;
-const int InputNodes = 2;
+const int PatternCount = 40192;
+const int InputNodes = 3;
 const int HiddenNodes = 20;
 const int OutputNodes = 1;
 const float LearningRate = 0.3;
 const float Momentum = 0.9;
 const float InitialWeightMax = 0.5;
-const float Success = 0.001;
+const float Success = 0.0001;
 
 float Input[PatternCount][InputNodes];
 float Target[PatternCount][OutputNodes];
@@ -134,7 +134,7 @@ void initWeights(){
     		             }
     		             Output[i] = 1.0 / (1.0 + exp(-Accum)) ;
     		             OutputDelta[i] = (Target[p][i] - Output[i]) * Output[i] * (1.0 - Output[i]) ;
-    		             Error += 0.5 * (Target[p][i] - Output[i]) * (Target[p][i] - Output[i]) ;
+    		             Error += (Target[p][i] - Output[i]) * (Target[p][i] - Output[i])/PatternCount ;
     		           }
 
     		           /******************************************************************
@@ -324,7 +324,7 @@ void check() {
 
     }
   }
-  int testnumber = 92;
+  int testnumber = 405;
   float newInput[testnumber][InputNodes];
   float newTarget[testnumber][OutputNodes];
   FILE *testfile,*testtarget;
